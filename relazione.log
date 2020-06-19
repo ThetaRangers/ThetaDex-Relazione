@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.17)  17 JUN 2020 11:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.17)  17 JUN 2020 11:45
 entering extended mode
 **./relazione.tex
 (relazione.tex
@@ -49,17 +49,17 @@ LaTeX Font Info:    ... okay on input line 2.
 {C:/Users/Daniele/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (relazion
 e.aux) ) 
 Here is how much of TeX's memory you used:
- 366 strings out of 480799
- 6558 string characters out of 2894850
+ 368 strings out of 480799
+ 6579 string characters out of 2894850
  238747 words of memory out of 3000000
- 16452 multiletter control sequences out of 15000+200000
- 532943 words of font info for 26 fonts, out of 3000000 for 9000
+ 16453 multiletter control sequences out of 15000+200000
+ 533251 words of font info for 27 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 25i,4n,19p,146b,97s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 25i,4n,19p,146b,99s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Daniele/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
 amsfonts/cm/cmbx12.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on relazione.pdf (1 page, 20505 bytes).
+Output written on relazione.pdf (1 page, 22205 bytes).
 PDF statistics:
  14 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
