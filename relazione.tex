@@ -101,7 +101,10 @@ Alcune delle nostre scelte implementative sono quindi state:
 						Abbiamo deciso anche di implementare la parte audio di questa funzionalità, in quanto elemento cardine e molto facilmente riconoscibile.\\
 				\subsection{Fragments e LiveData}
 					\paragraph{}
-						TODO WITH MY BABA
+						Sia la lista visualizzata nel Pokédex che quella dei Pokémon preferiti si trovano in appositi ViewModel, al fine di sopravvivere ad eventi catastrofici come la rotazione del dispositivo. Queste liste vengono modificate dalla classe che gestisce l’accesso al database e sono osservate dai Fragments corrispondenti.\\
+						L’utilizzo dei ViewModel permette inoltre ai Fragments di comunicare tra loro.\\
+						Avendo optato per l’utilizzo di un NavigationDrawer, la maggior parte delle funzionalità offerte dall’applicazione sono situate all’interno di appositi Fragments. La PokedexActivity ha il compito di coordinare i diversi Fragments, di sostituirli e di salvare i loro stati. Il salvataggio, in particolare, viene portato a termine con l’aiuto di una classe aggiuntiva: la FragmentStateHelper.\\
+						In questa, gli stati dei Fragments sono archiviati in una HashMap che ha come chiave l’id del Fragment corrispondente. La stessa PokedexActivity tiene traccia dei Fragments da lei creati con una propria HashMap dal comportamento simile. Prima di sostituire un Fragment, il suo stato attuale viene salvato, per poi essere ripristinato quando dovrà essere visualizzato nuovamente. I vari stati possono essere salvati in un Bundle per sopravvivere alla rotazione della PokedexActivity.\\
 				\newpage
 
 				
