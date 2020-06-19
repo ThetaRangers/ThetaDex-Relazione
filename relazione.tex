@@ -1,7 +1,106 @@
-\documentclass{article}
-\begin{document}
-  \section{Introduzione}
-  \section{Scelte implementative}
-  \section{Manuale D'uso}
+% !TeX spellcheck = it
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[none]{hyphenat}
 
+\begin{document}
+	\section{Indice}
+		\begin{enumerate}
+			\item Introduzione
+			\item Funzionalità implementate
+			\item Scelte UI
+			\item Scelte di implementazione
+		\end{enumerate}
+	\newpage
+	
+	\section{Introduzione}
+		\subsection{Scelta del progetto}
+			\paragraph{}
+				Abbiamo scelto il progetto dei Pokémon in quanto conoscitori dell’ambiente e possibili utilizzatori di un’eventuale applicazione terminata.
+		\subsection{Metodologia di lavoro}
+			\paragraph{}
+				Essendo un gruppo relativamente numeroso e lontani gli uni dagli altri, abbiamo sfruttato largamente strumenti come la chat vocale, la condivisione dello schermo e GitHub. Abbiamo collaborato molto sia nella scrittura del codice, sia nelle scelte grafiche, e molto raramente una parte dell’applicazione è stata sviluppata da un singolo elemento.\newpage
+	
+	\section{Funzionalità implementate}
+  		\paragraph{}
+  			Abbiamo deciso di strutturare il progetto come una nostra implementazione del Pokédex. \\ 
+Alcune delle nostre scelte implementative sono quindi state:
+		\begin{itemize}
+			\item All’apertura viene mostrata una schermata con la \textbf{lista di tutti i Pokémon}, con informazioni basilari come nome, ID e tipo del Pokémon. \textit{[Per “tutti i Pokémon” abbiamo inteso i Pokémon presenti nell’API nel momento dello sviluppo della nostra applicazione, quindi tutti i Pokémon precedenti a Pokémon Spada e Scudo, escluse le forme alternative, come le forme di altre regioni e le mega evoluzioni.]}
+			\item Si possono \textbf{cercare i Pokémon tramite nome}, anche non completo, e \textbf{tramite ID}. Abbiamo anche inserito un \textbf{filtro per tipi}, e la possibilità di muoversi velocemente attraverso la lista, tramite \textbf{una barra di scorrimento laterale}, visto l’alto numero di elementi nella lista.
+			\item Gli \textbf{elementi della lista sono espandibili e mostrano informazioni approfondite} sul Pokémon in questione. In particolare abbiamo deciso di mostrare:
+				\begin{itemize}
+					\item Delle \textbf{informazioni generali} sul Pokèmon, ad esempio:
+						\begin{itemize}
+							\item \textit{Flavor-text}, ovvero un piccolo testo descrittivo sul Pokémon
+							\item Tasso di cattura e di genere
+							\item Habitat
+						\end{itemize}
+					\item Le \textbf{statistiche} del Pokémon, come HP e attacco
+					\item Le \textbf{abilità} che il Pokémon può avere, a loro volta espandibili
+					\item Le \textbf{mosse} che il Pokémon può imparare, a loro volta espandibili	
+					\item La sua \textbf{catena evolutiva}
+				\end{itemize}
+			\item I Pokémon possono essere \textbf{aggiunti ai preferiti}, e salvati in locale, per essere più facilmente raggiungibili in un’apposita schermata. L’aggiunta ai preferiti si può effettuare sia dalla lista del Pokédex, sia dalla pagina dei suoi dettagli.
+			\item È presente un minigioco liberamente ispirato al famoso intermezzo delle puntate del cartone animato dei Pokémon \textbf{\textit{“Who is that Pokémon?”}}. Questo consiste nell’indovinare il nome del Pokémon data la sua sagoma oscurata.
+		\end{itemize}\newpage
+
+	\section{Scelte UI}
+		\paragraph{}
+			Abbiamo sfruttato largamente ciò che avevamo appreso con l’esonero di Material Design, utilizzando ad esempio:
+			\begin{itemize}
+				\item Le CardView per i Pokémon nella vista del Pokédex
+				\item I Floating Button per la ricerca e per i filtri
+				\item Il supporto per il tema scuro
+				\item L’icona per l’aggiunta ai preferiti
+			\end{itemize} 
+			Abbiamo inoltre curato molto la scelta dei colori dei vari elementi della UI.\\
+			Una scelta su cui abbiamo investito molto è stata quella di rendere la CardView nella vista del Pokédex del colore medio del Pokémon, calcolato a partire dalla sua immagine e in seguito desaturato. Le carte sono inoltre disposte diversamente in base all’orientamento dello schermo, per migliorare la leggibilità (ciò viene fatto tramite un GridLayout).\\
+			Inoltre abbiamo cercato di utilizzare il più possibile elementi grafici per rappresentare i dati, come le barre di progressione per le statistiche del Pokémon.\\
+			Per migliorare la navigabilità, nella activity di dettaglio è stato aggiunto anche un bottone per tornare alla home della applicazione, questo perchè l’utente può aprire un gran numero di activity di dettaglio dalla linea evolutiva. \newpage
+ 
+  	\section{Scelte implementative}
+  		\paragraph{}
+  			Di seguito riportiamo le più significative scelte implementative che abbiamo fatto.
+  				\subsection{API}
+  					\paragraph{}
+  						L’API fornita è molto completa e ricca di informazioni, anche se difficile da localizzare. Allo stesso tempo però ritorna spesso oggetti molto complessi, come è ad esempio le catene evolutive, o incompleti, e che necessitano quindi di più richieste per ottenere tutte le informazioni. Inoltre è presente una limitazione a 100 richieste/minuto che ci ha imposto di trovare soluzioni alternative e di utilizzare ampiamente il caching. Le informazioni dall’API sono state ottenute tramite le Volley, e durante lo sviluppo abbiamo sempre cercato di diminuire il numero delle richieste.
+  				\subsection{Inizializzazione dell'applicazione}
+  					\paragraph{}
+  						Vista la limitazione del numero delle chiamate dell’API e dell’alto numero dei Pokèmon da ottenere, al momento dello sviluppo 807, abbiamo dovuto trovare alcune soluzioni alternative.\\
+  						Volevamo infatti che già al primo avvio dell’applicazione, il Pokédex fosse consultabile per intero. Ciò ci imponeva di avere quanto meno le informazioni basilari per rappresentare un Pokémon, quindi nome, ID, immagine e in seguito abbiamo anche aggiunto il tipo.\\
+  						Per il download di tutte le immagini dei Pokémon abbiamo deciso di hostare sulla nostra repository di GitHub un file .zip delle dimensioni circa di circa 15MB, da noi prodotto e contenente tutte le immagini, così da poter in qualsiasi momento cambiare il set di immagini e di ridurre le richieste di download da più di 800 ad 1. Ciò è stato fatto non tanto per la limitazione delle chiamate delle API, ma piuttosto per diminuire il numero di download da gestire in contemporanea.\\
+  						Per ottenere invece il nome e l’ID del Pokémon abbiamo sfruttato una chiamata dell’API che ritorna appunto questi due dati per tutti i Pokémon presenti.\\
+  						Infine per ottenere il tipo, o i tipi, del Pokémon abbiamo fatto una chiamata per ogni tipo presente, quindi 18 chiamate. Con queste chiamate abbiamo anche ottenuto l’intera lista delle mosse e il loro relativo tipo, ottimizzando il numero di richieste. Per completezza abbiamo fatto ulteriori 3 chiamate sul tipo di danno della mossa, avendo così un modo per rappresentarle facilmente ed in maniere completa.\\
+  						Tutte queste informazioni vengono poi inserite nel nostro database e permettono un completo e fluido utilizzo della vista del Pokédex, già dal primo avvio.\\
+  				\subsection{Rappresentazione dettagli del Pokémon}
+  					\paragraph{}
+  						Alcuni elementi nel dettaglio del Pokémon, come le statistiche o il flavor-text, che sono stati abbastanzi elementari da rappresentare.\\
+  						A differenza di questi, le abilità, le mosse e la catena evolutiva hanno richiesto una maggiore attenzione.\\
+  						Le abilità, visto che un Pokèmon ne presenta fino ad un massimo di 3, sono riportate direttamente nel dettaglio e sono cliccabili. Il click comporta la comparsa di una carta che ne riporta i dettagli, che vengono scaricati tramite chiamata all’API.\\
+  						Per le mosse, visto che un Pokémon può presentarne nell’ordine delle molte decine, sono state raccolte in una View, espandibile tramite il click di un bottone, e sono rappresentate come una lista di CardView. Al tap la CardView si apre e mostra i dettagli della mossa, che vengono ottenuti tramite chiamata all’API.\\
+  						La catena evolutiva è stata invece decisamente più difficile da gestire, vista la molta variabilità dei casi possibili. Infatti alcuni Pokémon presentano catene evolutive abbastanza complesse. \textit{[Si passa infatti da Pokémon che non presentano nessuna evoluzione, come Mewtwo, a Pokémon con multiple evoluzioni o diramazioni, come Eevee e Ralts, passando per Pokémon con catene evolutive semplici, come Bulbasaur]}.\\
+  						 Allo stesso tempo, il meccanismo di evoluzione dei Pokémon, può variare molto in complessità. \textit{[Si passa da Pokémon che si evolvono per il semplice aumento di livello, come Ivysaur, a Pokèmon che richiedono multiple condizioni, come Sylveon]}.\\
+  						 Un’ulteriore difficoltà era dovuta al difficile parsing delle informazioni ritornate dall’API, e al fatto che che per ottenere le informazioni andava fatta una chiamata aggiuntiva. Il parsing, molto complesso, è stato fatto in maniera da poter ottenere le informazioni a noi utili ed inserirle in una classe che ci permettesse di utilizzarle in maniera semplice. Ottenute queste informazioni la linea evolutiva viene rappresentate come CardView dei Pokémon, con relativo metodo di evoluzioni e cliccabili per mostrarne i dettagli.
+				\subsection{Database}
+					\paragraph{}
+						Il database viene riempito delle informazioni fondamentali per rappresentare il Pokédex nella fase di inizializzazione al primo avvio dell’applicazione.\\
+						Quando poi per un Pokémon si apre la scheda di dettaglio o viene aggiunto ai preferiti, se tutti i suoi dati di dettaglio non sono presenti nel nostro database, viene fatta una richiesta all’API e vengono salvati i dati nel database. In questo modo si usa il caching per diminuire il numero di chiamate all’API e contemporaneamente migliorare le prestazioni dell’applicazioni, in quanto accedere ai dati dal database è più veloce che aspettare la risposta dell’API.\\
+						Vengono salvate tutte le informazioni per poter rappresentare il dettaglio del Pokémon, compresa la lista delle sue mosse e delle abilità, ma non i dettagli di queste ultime, in quanto richiederebbero ulteriori richieste all’API.\\
+				\subsection{Gestione dei preferiti}
+					\paragraph{}
+						Avendo deciso di implementare in maniera così estensiva il caching, per implementare la funzionalità di aggiungere i Pokémon ai preferiti è bastato aggiungere un campo che fungeva da flag per indicare se il Pokémon era o meno tra i preferiti.\\
+						Un Pokémon può essere aggiunto o rimosso dai preferiti sia nella vista Pokédex, sia nella vista del dettaglio del Pokémon, tramite l’apposita icona a forma di stella. È possibile anche aggiungere più Pokémon alla volta utilizzando un sistema di scelta multipla, che si attiva con un long click nella vista Pokédex. Abbiamo però deciso di limitare il numero di Pokémon selezionabili in una singola volta, per non creare situazioni in cui l’utente selezioni un numero di Pokémon troppo elevato che esaurisca le chiamate all’API.\\
+						È presente anche una activity apposita per la visualizzazione dei Pokémon preferiti, facilmente accessibile dal menu a comparsa laterale.\\
+				\subsection{Who is that Pokémon}
+					\paragraph{}
+						Abbiamo deciso di implementare questa funzionalità aggiuntiva come tributo a l’intermezzo del cartone animato e per offrire la possibilità di utilizzare l’applicazione in maniera più ludica. Per come è stata implementato il database, questa funzionalità non richiede nessuna chiamata aggiunta all’API e inoltre non richiede il salvataggio della sagoma del Pokémon, in quanto questa viene prodotta a runtime partendo dall’immagine che scarichiamo nella fase di inizializzazione.\\
+						Abbiamo deciso anche di implementare la parte audio di questa funzionalità, in quanto elemento cardine e molto facilmente riconoscibile.\\
+				\subsection{Fragments e LiveData}
+					\paragraph{}
+						TODO WITH MY BABA
+				\newpage
+
+				
+  						
 \end{document}
